@@ -2,7 +2,7 @@
 
 function cier_block_info() {
   $blocks['cier'] = array(
-    'info' => t('Cier Block'),
+    'info' => t('Eventos'),
   );
 
   return $blocks;
@@ -13,7 +13,7 @@ function cier_block_view($delta = '') {
 
   switch ($delta) {
     case 'cier':
-      $block['subject'] = t('The Cier Block');
+      $block['subject'] = t('Eventos');
       $block['content'] = execute_select_query();
     break;
   }
@@ -28,14 +28,34 @@ function execute_select_query(){
 
   $result = $query->execute();
 
+  $output .= get_open_box_container();
+
   while($record = $result->fetchAssoc()) {
+      $output .= get_open_box();
       $output .= $record["name"] . '<br/>';
       $output .= $record["url"] . '<br/>';
       $output .= $record["date"] . '<br/>';
       $output .= $record["hour"] . '<br/>';
+      $output .= get_close_box();
   }
 
-  $output .= '<br/>';
+  $output .= get_close_box_container();
 
   return $output;
+}
+
+function get_open_box_container(){
+  return "<div class='wrapper'>";
+}
+
+function get_open_box(){
+  return "<div class='box'>";
+}
+
+function get_close_box_container(){
+  return "</div>";
+}
+
+function get_close_box(){
+  return "</div>";
 }
