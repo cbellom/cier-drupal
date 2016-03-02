@@ -1,0 +1,41 @@
+<?php
+
+function cier_block_info() {
+  $blocks['cier'] = array(
+    'info' => t('Cier Block'),
+  );
+
+  return $blocks;
+}
+
+function cier_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'cier':
+      $block['subject'] = t('The Cier Block');
+      $block['content'] = execute_select_query();
+    break;
+  }
+  return $block;
+}
+
+function execute_select_query(){
+  $output = '';
+
+  $query = db_select('event', 'c')
+      ->fields('c');
+
+  $result = $query->execute();
+
+  while($record = $result->fetchAssoc()) {
+      $output .= $record["name"] . '<br/>';
+      $output .= $record["url"] . '<br/>';
+      $output .= $record["date"] . '<br/>';
+      $output .= $record["hour"] . '<br/>';
+  }
+
+  $output .= '<br/>';
+
+  return $output;
+}

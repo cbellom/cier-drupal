@@ -1,0 +1,4 @@
+name = cier
+description = module cier
+core = 7.x
+package cier
